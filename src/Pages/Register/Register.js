@@ -31,13 +31,13 @@ const {createUser} = useContext(AuthProvider);
     <div className="card p-5 flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
     <h1 className="text-5xl text-center font-bold">Sign Up now!</h1>
         <form onSubmit={handleSignUP}  className="form-control">
-      <div className="card-body ">
+      <div className="card-body p-0">
           <label className="label">
             <span className="label-text">Name</span>
           </label>
           <input type="text" name="name" placeholder="Your Name" className="input input-bordered" />
         </div>
-      <div className="card-body ">
+      <div className="card-body p-0">
           <label className="label">
             <span className="label-text">Email</span>
           </label>
