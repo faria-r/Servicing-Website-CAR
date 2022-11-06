@@ -6,7 +6,7 @@ const [orderService,setOrderService] = useState({})
 
 useEffect(() => {
     // console.log(service,_id,order);
-    fetch(`http://localhost:5000/services/${_id}`)
+    fetch(`https://genius-car-server-coral-chi.vercel.app/services/${_id}`)
         .then(res => res.json())
         .then(data => setOrderService(data))
         console.log(orderService);

@@ -28,10 +28,11 @@ const CheckOut = () => {
             alert('phone number should be 11 digit')
         }
 
-        fetch('http://localhost:5000/orders',{
+        fetch('https://genius-car-server-coral-chi.vercel.app/orders',{
             method:'POST',
             headers:{
-                'content-type':'application/json'
+                'content-type':'application/json',
+                authorization:`Bearer ${localStorage.getItem('car-token')}`
             },
             body:JSON.stringify(order)
         })

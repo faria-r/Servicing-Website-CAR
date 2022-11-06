@@ -1,11 +1,15 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 import { AuthProvider } from "../../Context/AuthContext";
+import SocialLogin from '../Shared/SocialLogin'
 
 const Login = () => {
   const { loginWithGoogle, signIn } = useContext(AuthProvider);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || '/';
 
   const googleAuth = new GoogleAuthProvider();
 
@@ -18,7 +22,32 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        const currentuser = {
+          email:user.email,
+
+
+        }
+        console.log(currentuser)
+
+        //get jwt token
+
+        fetch('https://genius-car-server-coral-chi.vercel.app/jwt',{
+          method:"POST",
+          headers:{
+            'content-type':'application/json'
+          },
+          body:JSON.stringify(currentuser)
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          //local storage is not the best place to store jwt
+          localStorage.setItem('car-token',data.token)
+            navigate(from,{replace:true})
+          
+        })
         form.reset();
+      
       })
       .catch((e) => console.log(e));
   };
@@ -93,6 +122,8 @@ const Login = () => {
                 Register
               </Link>
             </p>
+
+     <SocialLogin></SocialLogin>
           </div>
         </div>
       </div>
